@@ -16,9 +16,9 @@ export function Card({
   return (
     <div
       className={`
-        bg-white rounded-2xl shadow-sm border border-gray-100
+        bg-zinc-800 rounded-2xl shadow-sm border border-zinc-700
         transition-all duration-300
-        ${hoverable ? 'hover:shadow-lg hover:border-gray-200 cursor-pointer' : ''}
+        ${hoverable ? 'hover:shadow-lg hover:border-zinc-600 cursor-pointer' : ''}
         ${className}
       `}
       {...props}

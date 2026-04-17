@@ -3,7 +3,7 @@
 import { useProjects } from '@/hooks/useProjects';
 import { Card } from '@/components/ui/Card';
 import { EmptyState } from '@/components/ui/EmptyState';
-import { LoadingSkeleton, CardSkeleton } from '@/components/ui/Skeleton';
+import { CardSkeleton } from '@/components/ui/Skeleton';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { FileJson } from 'lucide-react';
@@ -23,7 +23,7 @@ export default function PortfolioProjects({ isAdmin }: { isAdmin: boolean }) {
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+      <div className="bg-red-900/30 border border-red-700 text-red-400 px-4 py-3 rounded-lg">
         {error}
       </div>
     );
@@ -54,7 +54,7 @@ export default function PortfolioProjects({ isAdmin }: { isAdmin: boolean }) {
         {projects.map((project) => (
           <Card key={project.id} hoverable className="overflow-hidden flex flex-col">
             {project.image_url && (
-              <div className="h-40 bg-gray-200 overflow-hidden">
+              <div className="h-40 bg-zinc-700 overflow-hidden">
                 <img
                   src={project.image_url}
                   alt={project.title}
@@ -63,11 +63,11 @@ export default function PortfolioProjects({ isAdmin }: { isAdmin: boolean }) {
               </div>
             )}
             <div className="p-6 flex-1 flex flex-col">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-white mb-2">
                 {project.title}
               </h3>
-              <p className="text-gray-600 mb-4 flex-1">{project.description}</p>
-              <p className="text-sm text-gray-500">
+              <p className="text-zinc-400 mb-4 flex-1">{project.description}</p>
+              <p className="text-sm text-zinc-500">
                 {new Date(project.created_at).toLocaleDateString()}
               </p>
             </div>
@@ -76,8 +76,8 @@ export default function PortfolioProjects({ isAdmin }: { isAdmin: boolean }) {
       </div>
 
       {isAdmin && (
-        <div className="text-center mt-12 p-6 bg-blue-50 rounded-2xl border border-blue-200">
-          <p className="text-blue-900 mb-4">Want to manage your projects?</p>
+        <div className="text-center mt-12 p-6 bg-blue-900/30 rounded-2xl border border-blue-700">
+          <p className="text-blue-300 mb-4">Want to manage your projects?</p>
           <Link href="/dashboard/projects">
             <Button className="px-8">Go to Admin Dashboard</Button>
           </Link>
