@@ -402,6 +402,7 @@
         type="date" 
         v-model="jadwal.form.tanggal_mulai" 
         class="input"
+        :min="minDate"
       />
     </div>
 
@@ -508,6 +509,11 @@ const notificationStore = useNotificationStore()
 const confirmStore = useConfirmStore()
 const reminderTimes = ref([])
 
+const minDate = computed(() => {
+  const today = new Date()
+  return today.toISOString().split('T')[0]
+})
+
 const frekuensiCount = computed(() => {
   const f = jadwal.form.frekuensi || ''
   const match = f.match(/\d+/)
@@ -607,9 +613,18 @@ onBeforeUnmount(() => {
 
 const handleSubmit = () => {
   if (!jadwal.form.tanggal_mulai) {
-    notificationStore.error('Tanggal mulai wajib diisi', 'Gagal')
+    notificationStore.error('Tanggal mulai wajib diisi', 'Peringatan')
     return
   }
+  
+  const todayDate = new Date()
+  todayDate.setHours(0, 0, 0, 0)
+  const inputDate = new Date(jadwal.form.tanggal_mulai)
+  if (inputDate < todayDate) {
+    notificationStore.error('Tanggal mulai tidak boleh di masa lampau', 'Validasi Gagal')
+    return
+  }
+
   if (jadwal.selectedWaktuMinum.length === 0) {
     notificationStore.warning('Pilih minimal satu waktu minum (Pagi/Siang/Malam)', 'Peringatan')
     return

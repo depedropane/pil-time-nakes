@@ -164,9 +164,16 @@ export const useJadwalStore = defineStore('jadwal', () => {
 const submitJadwal = async () => {
   loading.value = true
   try {
-    if (!form.value.patientId) throw new Error('Pilih pasien dulu')
-    if (!form.value.obatId) throw new Error('Pilih obat dulu')
-    if (!form.value.tanggal_mulai) throw new Error('Tanggal mulai wajib')
+    if (!form.value.patientId) throw new Error('Pilih pasien terlebih dahulu')
+    if (!form.value.obatId) throw new Error('Pilih obat terlebih dahulu')
+    if (!form.value.tanggal_mulai) throw new Error('Tanggal mulai wajib diisi')
+    
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+    const startDate = new Date(form.value.tanggal_mulai)
+    if (startDate < today) {
+      throw new Error('Tanggal mulai tidak boleh di masa lampau (sebelum hari ini)')
+    }
 
     // Kumpulkan waktu minum dari selectedWaktuMinum
     const jamMinumList = selectedWaktuMinum.value.map(w => {
@@ -180,7 +187,7 @@ const submitJadwal = async () => {
     }).filter(j => j)
 
     if (jamMinumList.length === 0) {
-      throw new Error('Pilih minimal 1 waktu minum')
+      throw new Error('Pilih minimal 1 waktu minum (Pagi/Siang/Malam)')
     }
 
     const payload = {
@@ -221,7 +228,8 @@ const submitJadwal = async () => {
   } catch (err) {
     console.error(err)
     const notificationStore = useNotificationStore()
-    notificationStore.error('Error: ' + (err.response?.data?.error || err.message), 'Gagal Menyimpan')
+    const errMsg = err.response?.data?.error || err.response?.data?.message || err.message
+    notificationStore.error(errMsg, 'Gagal Menyimpan')
   } finally {
     loading.value = false
   }

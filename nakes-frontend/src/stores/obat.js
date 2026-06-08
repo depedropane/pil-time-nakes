@@ -14,7 +14,8 @@ export const useObatStore = defineStore('obat', () => {
       obatList.value = response.data.data || []
       error.value = null
     } catch (err) {
-      error.value = err.message
+      const errMsg = err.response?.data?.error || err.response?.data?.message || err.message
+      error.value = errMsg
       console.error('Error fetching obats:', err)
     } finally {
       loading.value = false
@@ -32,7 +33,8 @@ export const useObatStore = defineStore('obat', () => {
       await fetchObats() 
       return newObat
     } catch (err) {
-      error.value = err.message
+      const errMsg = err.response?.data?.error || err.response?.data?.message || err.message
+      error.value = errMsg
       throw err
     }
   }
@@ -47,7 +49,8 @@ export const useObatStore = defineStore('obat', () => {
       await fetchObats() 
       return response.data.data
     } catch (err) {
-      error.value = err.message
+      const errMsg = err.response?.data?.error || err.response?.data?.message || err.message
+      error.value = errMsg
       throw err
     }
   }
@@ -57,7 +60,8 @@ export const useObatStore = defineStore('obat', () => {
       await apiClient.delete(`/admin/info-obat/${id}`)
       obatList.value = obatList.value.filter(o => o.obat_id !== id)
     } catch (err) {
-      error.value = err.message
+      const errMsg = err.response?.data?.error || err.response?.data?.message || err.message
+      error.value = errMsg
       throw err
     }
   }

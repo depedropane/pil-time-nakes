@@ -155,7 +155,8 @@ const handleFormSubmit = async (formData) => {
     await obatStore.fetchObats()
   } catch (error) {
     console.error("Kesalahan saat simpan:", error)
-    alert("Gagal menyimpan data obat")
+    const errMsg = error.response?.data?.error || error.response?.data?.message || error.message || "Terjadi kesalahan"
+    alert("Gagal menyimpan data obat: " + errMsg)
   } finally {
     loading.value = false
   }
