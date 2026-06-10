@@ -221,7 +221,6 @@ const goToPanduan = () => {
         <p class="fc-desc">
           Alarm pintar otomatis setiap jadwal minum obat — pagi, siang, dan malam. Tidak akan terlewat satu dosis pun.
         </p>
-        <div class="fc-arrow">→</div>
       </div>
 
       <div class="feature-card fc-teal">
@@ -233,7 +232,6 @@ const goToPanduan = () => {
         <p class="fc-desc">
           Informasi obat yang jelas, dosis yang tepat, dan panduan mudah dipahami untuk semua usia.
         </p>
-        <div class="fc-arrow">→</div>
       </div>
 
       <div class="feature-card fc-blue">
@@ -245,7 +243,6 @@ const goToPanduan = () => {
         <p class="fc-desc">
           Pantau progres kepatuhan minum obat secara realtime. Laporan harian yang mudah dibaca.
         </p>
-        <div class="fc-arrow">→</div>
       </div>
 
       <div class="feature-card fc-warm">
@@ -257,7 +254,6 @@ const goToPanduan = () => {
         <p class="fc-desc">
           Bangun kebiasaan hidup sehat yang stabil setiap hari dengan panduan rutinitas yang terstruktur.
         </p>
-        <div class="fc-arrow">→</div>
       </div>
 
     </div>
