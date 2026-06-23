@@ -185,6 +185,10 @@
                     <p class="text-sm font-medium text-slate-900">{{ formatDate(selectedPasien.tanggal_lahir) }}</p>
                   </div>
                   <div>
+                    <p class="text-xs text-gray-500">UMUR</p>
+                    <p class="text-sm font-medium text-slate-900">{{ calculateAge(selectedPasien.tanggal_lahir) }}</p>
+                  </div>
+                  <div>
                     <p class="text-xs text-gray-500">ALAMAT</p>
                     <p class="text-sm font-medium text-slate-900 break-words">{{ selectedPasien.alamat || '-' }}</p>
                   </div>
@@ -248,6 +252,18 @@ export default {
       })
     }
 
+    const calculateAge = (dateStr) => {
+      if (!dateStr) return '-'
+      const birthDate = new Date(dateStr)
+      const today = new Date()
+      let age = today.getFullYear() - birthDate.getFullYear()
+      const m = today.getMonth() - birthDate.getMonth()
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--
+      }
+      return `${age} Tahun`
+    }
+
     const selectPasien = (pasien) => {
       selectedPasien.value = pasien
     }
@@ -273,6 +289,7 @@ export default {
       selectPasien,
       getInitials,
       formatDate,
+      calculateAge,
       formatWA
     }
   }
